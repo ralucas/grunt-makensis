@@ -8,50 +8,50 @@
 
 'use strict';
 
+var path = require('path');
+var Q = require('q');
+var _ = require('lodash');
+
 module.exports = function(grunt) {
 
   // Please see the Grunt documentation for more information regarding task
   // creation: http://gruntjs.com/creating-tasks
 
   grunt.registerMultiTask('makensis', 'Grunt plugin for creating a windows installer with makensis', function() {
+
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      punctuation: '.',
-      separator: ', '
+      buildDir: '/',
+      appName: 'Windows_App'
     });
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function(f) {
-      // Concat specified files.
-      var src = f.src.filter(function(filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+    if (!options.srcDir) throw new Error('srcDir is required')
 
-      // Handle options.
-      src += options.punctuation;
+    var src = path.join(__dirname, '..', options.srcDir);
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
+    var dataObj = _.extend(options, {files: []});
 
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
+    // recurse the directory
+    grunt.file.recurse(src, function(abspath, rootdir, subdir, filename) {
+      // just take the files not in locales
+      if (!subdir) {
+        dataObj.files.push(filename);
+      }
+    });
+
+    var nsiTemplate = grunt.file.read('../templates/template.nsi');
+
+    var createdNsiTemplateFile = grunt.template.process(nsiTemplate, {data: dataObj})
+
+    Q.when(createdNsiTemplateFile, function() {
+      grunt.util.spawn({
+        cmd: 'makensis',
+        args: [createdNsiTemplateFile]
+      }, function(error, result, code) {
+        if (error) console.log(new Error(error));
+        console.log(result);  
+      });
     });
   });
-
-  grunt.util.spawn({
-    cmd: 'makensis',
-    args: [windowsInstallerFilePath]
-  }, function(error, result, code) {
-    
-  });
-
+   
 };
