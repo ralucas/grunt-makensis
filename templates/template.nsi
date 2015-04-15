@@ -46,7 +46,7 @@ Section "<%= appName %> (required)"
   
   ; Put file there
   <% _.each(files, function(file) { %>
-  File "<%= srcDir %>/<%- file %>"
+  File "<%= srcDir %><%- file %>"
   <% }) %>
   
   ; Write the installation path into the registry

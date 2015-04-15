@@ -14,18 +14,20 @@ var _ = require('lodash');
 
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+  grunt.registerTask('makensis', 'Grunt plugin for creating a windows installer with makensis', function() {
 
-  grunt.registerMultiTask('makensis', 'Grunt plugin for creating a windows installer with makensis', function() {
-
-    // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
       buildDir: '/',
       appName: 'Windows_App'
     });
 
-    if (!options.srcDir) throw new Error('srcDir is required')
+    if (!options.srcDir) {
+      throw new Error('srcDir is required');
+    }
+
+    if ( !(/\/$/.test(options.srcDir)) ) {
+      options.srcDir = options.srcDir + '/';
+    }
 
     var src = path.join(__dirname, '..', options.srcDir);
 
@@ -39,17 +41,25 @@ module.exports = function(grunt) {
       }
     });
 
-    var nsiTemplate = grunt.file.read('../templates/template.nsi');
+    var nsiTemplate = grunt.file.read(path.join(__dirname, '..', '/templates/template.nsi'));
 
-    var createdNsiTemplateFile = grunt.template.process(nsiTemplate, {data: dataObj})
+    var nsiTemplateString = grunt.template.process(nsiTemplate, {data: dataObj});
+
+    grunt.file.write('./created_template.nsi', nsiTemplateString);
+
+    var createdNsiTemplateFile = path.join(__dirname, '..', 'created_template.nsi');
 
     Q.when(createdNsiTemplateFile, function() {
       grunt.util.spawn({
         cmd: 'makensis',
         args: [createdNsiTemplateFile]
       }, function(error, result, code) {
-        if (error) console.log(new Error(error));
-        console.log(result);  
+        if (error) {
+          throw new Error(error);
+        } else { 
+          console.log('code', code);
+          console.log('result', result);
+        }  
       });
     });
   });

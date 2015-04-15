@@ -26,58 +26,44 @@ In your project's Gruntfile, add a section named `makensis` to the data object p
 grunt.initConfig({
   makensis: {
     options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+      srcDir: 'directory/of/source/files',
+      buildDir: 'directory/for/the/exe/to/go',
+      appName: 'Name-of-my-app'
+    }
   },
 });
 ```
 
 ### Options
 
-#### options.separator
+#### options.srcDir
 Type: `String`
-Default value: `',  '`
+Default value: There is no default value, this is required for input 
 
-A string value that is used to do something with whatever.
+A string value that is the directory to the files that you want wrapped up into the windows installer 
 
-#### options.punctuation
+#### options.buildDir
 Type: `String`
-Default value: `'.'`
+Default value: `'/'`
 
-A string value that is used to do something else with whatever else.
+A string value that is the directory for where the `.exe` file will go
+
+#### options.appName
+Type: `String`
+Default value: `'Windows_app'`
+
+A string value that is the name of the application
 
 ### Usage Examples
-
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
-
-```js
-grunt.initConfig({
-  makensis: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-});
-```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
 
 ```js
 grunt.initConfig({
   makensis: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
+      srcDir: 'directory/of/source/files',
+      buildDir: 'directory/for/the/exe/to/go',
+      appName: 'Name-of-my-app' 
+    }
   },
 });
 ```
@@ -86,4 +72,5 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+v0.1.0 - 4/15/15 - Initial Release
+
