@@ -8,10 +8,10 @@
 ;--------------------------------
 
 ; The name of the installer
-Name "<%= appName %>"
+Name "<%= appName %>_installer"
 
 ; The file to write
-OutFile "<%= appName %>.exe"
+OutFile "<%= appName %>_installer.exe"
 
 ; The default installation directory
 InstallDir $PROGRAMFILES\<%= appName %>
@@ -37,7 +37,7 @@ UninstPage instfiles
 ;--------------------------------
 
 ; The stuff to install
-Section "<%= appName %> (required)"
+Section "<%= appName %>"
 
   SectionIn RO
   
@@ -48,6 +48,7 @@ Section "<%= appName %> (required)"
   <% _.each(files, function(file) { %>
   File "<%= srcDir %><%- file %>"
   <% }) %>
+  File "created_template.nsi"
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\NSIS_<%= appName %> "Install_Dir" "$INSTDIR"
