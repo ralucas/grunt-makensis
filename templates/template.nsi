@@ -45,7 +45,9 @@ Section "<%= appName %> (required)"
   SetOutPath $INSTDIR
   
   ; Put file there
-  File "<%= appName %>.nsi"
+  <% _.each(files, function(file) { %>
+  File "<%= srcDir %>/<%- file %>"
+  <% }) %>
   
   ; Write the installation path into the registry
   WriteRegStr HKLM SOFTWARE\NSIS_<%= appName %> "Install_Dir" "$INSTDIR"
