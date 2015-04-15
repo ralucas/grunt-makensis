@@ -29,12 +29,10 @@ module.exports = function(grunt) {
       options.srcDir = options.srcDir + '/';
     }
 
-    var src = path.join(__dirname, '..', options.srcDir);
-
     var dataObj = _.extend(options, {files: []});
 
     // recurse the directory
-    grunt.file.recurse(src, function(abspath, rootdir, subdir, filename) {
+    grunt.file.recurse(options.srcDir, function(abspath, rootdir, subdir, filename) {
       // just take the files not in locales
       if (!subdir) {
         dataObj.files.push(filename);
@@ -47,7 +45,7 @@ module.exports = function(grunt) {
 
     grunt.file.write('./created_template.nsi', nsiTemplateString);
 
-    var createdNsiTemplateFile = path.join(__dirname, '..', 'created_template.nsi');
+    var createdNsiTemplateFile = './created_template.nsi';
 
     Q.when(createdNsiTemplateFile, function() {
       grunt.util.spawn({
