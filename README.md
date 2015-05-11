@@ -2,6 +2,8 @@
 
 > Grunt plugin for creating a windows installer with makensis
 
+__Requires__: [Makensis](http://nsis.sourceforge.net/Main_Page) command-line tool to be installed
+ 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
@@ -72,5 +74,6 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+v0.3.0 - 5/11/15 - Proper Logging Release
 v0.1.0 - 4/15/15 - Initial Release
 
