@@ -1,7 +1,7 @@
 {
   "name": "grunt-makensis",
   "description": "Grunt plugin for creating a windows installer with makensis",
-  "version": "0.1.0",
+  "version": "0.2.2",
   "homepage": "https://github.com/ralucas/grunt-makensis",
   "author": {
     "name": "ralucas",

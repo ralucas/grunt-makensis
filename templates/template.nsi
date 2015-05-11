@@ -54,7 +54,7 @@ Section "<%= appName %>"
   WriteRegStr HKLM SOFTWARE\NSIS_<%= appName %> "Install_Dir" "$INSTDIR"
   
   ; Write the uninstall keys for Windows
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "DisplayName" "NSIS Example2"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "DisplayName"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "NoRepair" 1
