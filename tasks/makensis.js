@@ -36,6 +36,10 @@ module.exports = function(grunt) {
       // just take the files not in locales
       if (!subdir) {
         dataObj.files.push(filename);
+        
+        if (/\.exe/.test(filename)) {
+          dataObj.exeFile = filename;
+        }
       }
     });
 

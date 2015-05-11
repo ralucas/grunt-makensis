@@ -54,7 +54,7 @@ Section "<%= appName %>"
   WriteRegStr HKLM SOFTWARE\NSIS_<%= appName %> "Install_Dir" "$INSTDIR"
   
   ; Write the uninstall keys for Windows
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "DisplayName" "NSIS Example2"
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "DisplayName"
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "UninstallString" '"$INSTDIR\uninstall.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "NoModify" 1
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\<%= appName %>" "NoRepair" 1
@@ -67,7 +67,7 @@ Section "Start Menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\<%= appName %>"
   CreateShortcut "$SMPROGRAMS\<%= appName %>\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
-  CreateShortcut "$SMPROGRAMS\<%= appName %>\<%= appName %> (MakeNSISW).lnk" "$INSTDIR\<%= appName %>.nsi" "" "$INSTDIR\<%= appName %>.nsi" 0
+  CreateShortcut "$SMPROGRAMS\<%= appName %>\<%= appName %>.lnk" "$INSTDIR\<%= exeFile %>" "" "$INSTDIR\<%= exeFile %>" 0
   
 SectionEnd
 
