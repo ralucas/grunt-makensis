@@ -67,7 +67,7 @@ Section "Start Menu Shortcuts"
 
   CreateDirectory "$SMPROGRAMS\<%= appName %>"
   CreateShortcut "$SMPROGRAMS\<%= appName %>\Uninstall.lnk" "$INSTDIR\uninstall.exe" "" "$INSTDIR\uninstall.exe" 0
-  CreateShortcut "$SMPROGRAMS\<%= appName %>\<%= appName %> (MakeNSISW).lnk" "$INSTDIR\<%= appName %>.nsi" "" "$INSTDIR\<%= appName %>.nsi" 0
+  CreateShortcut "$SMPROGRAMS\<%= appName %>\<%= appName %>.lnk" "$INSTDIR\<%= exeFile %>" "" "$INSTDIR\<%= exeFile %>" 0
   
 SectionEnd
 
@@ -93,3 +93,4 @@ Section "Uninstall"
   RMDir "$INSTDIR"
 
 SectionEnd
+

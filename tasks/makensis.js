@@ -16,6 +16,8 @@ module.exports = function(grunt) {
 
   grunt.registerTask('makensis', 'Grunt plugin for creating a windows installer with makensis', function() {
 
+    var done = this.async();
+
     var options = this.options({
       buildDir: '/',
       appName: 'Windows_App'
@@ -36,6 +38,10 @@ module.exports = function(grunt) {
       // just take the files not in locales
       if (!subdir) {
         dataObj.files.push(filename);
+        
+        if (/\.exe/.test(filename)) {
+          dataObj.exeFile = filename;
+        }
       }
     });
 
@@ -50,16 +56,17 @@ module.exports = function(grunt) {
     Q.when(createdNsiTemplateFile, function() {
       grunt.util.spawn({
         cmd: 'makensis',
-        args: [createdNsiTemplateFile]
+        args: [createdNsiTemplateFile],
+        opts: {stdio: 'inherit'}
       }, function(error, result, code) {
         if (error) {
           throw new Error(error);
-        } else { 
-          console.log('code', code);
-          console.log('result', result);
         }  
+        console.log('code: ', code);
+        done();
       });
     });
   });
    
 };
+
