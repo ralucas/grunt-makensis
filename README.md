@@ -3,7 +3,7 @@
 > Grunt plugin for creating a windows installer with makensis
 
 __Requires__: [Makensis](http://nsis.sourceforge.net/Main_Page) command-line tool to be installed
- 
+
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
@@ -30,7 +30,8 @@ grunt.initConfig({
     options: {
       srcDir: 'directory/of/source/files',
       buildDir: 'directory/for/the/exe/to/go',
-      appName: 'Name-of-my-app'
+      appName: 'Name-of-my-app',
+      setupName: '_installer'
     }
   },
 });
@@ -40,9 +41,9 @@ grunt.initConfig({
 
 #### options.srcDir
 Type: `String`
-Default value: There is no default value, this is required for input 
+Default value: There is no default value, this is required for input
 
-A string value that is the directory to the files that you want wrapped up into the windows installer 
+A string value that is the directory to the files that you want wrapped up into the windows installer
 
 #### options.buildDir
 Type: `String`
@@ -56,6 +57,12 @@ Default value: `'Windows_app'`
 
 A string value that is the name of the application
 
+#### options.setupName
+Type: `String`
+Default value: `'_installer'`
+
+A string value that is the name to add at the appName for the installer
+
 ### Usage Examples
 
 ```js
@@ -64,7 +71,7 @@ grunt.initConfig({
     options: {
       srcDir: 'directory/of/source/files',
       buildDir: 'directory/for/the/exe/to/go',
-      appName: 'Name-of-my-app' 
+      appName: 'Name-of-my-app'
     }
   },
 });

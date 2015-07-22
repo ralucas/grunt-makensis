@@ -14,14 +14,26 @@ var _ = require('lodash');
 
 module.exports = function(grunt) {
 
-  grunt.registerTask('makensis', 'Grunt plugin for creating a windows installer with makensis', function() {
+  grunt.registerMultiTask('makensis', 'Grunt plugin for creating a windows installer with makensis', function() {
 
     var done = this.async();
+    var templateNsiCreated = './created_template.nsi';
 
     var options = this.options({
       buildDir: '/',
-      appName: 'Windows_App'
+      appName: 'Windows_App',
+      setupName: '_installer'
     });
+
+    if ( !(/\/$/.test(options.buildDir)) ) {
+      options.buildDir = options.buildDir + '/';
+    }
+    if ( !grunt.file.exists(options.buildDir) ) {
+      grunt.file.mkdir(options.buildDir);
+    }
+    else {
+      grunt.file.delete(options.buildDir + options.appName + options.setupName + '.exe');
+    }
 
     if (!options.srcDir) {
       throw new Error('srcDir is required');
@@ -29,6 +41,9 @@ module.exports = function(grunt) {
 
     if ( !(/\/$/.test(options.srcDir)) ) {
       options.srcDir = options.srcDir + '/';
+    }
+    if ( !grunt.file.exists(options.srcDir) ) {
+      grunt.file.mkdir(options.srcDir);
     }
 
     var dataObj = _.extend(options, {files: []});
@@ -38,7 +53,7 @@ module.exports = function(grunt) {
       // just take the files not in locales
       if (!subdir) {
         dataObj.files.push(filename);
-        
+
         if (/\.exe/.test(filename)) {
           dataObj.exeFile = filename;
         }
@@ -49,9 +64,9 @@ module.exports = function(grunt) {
 
     var nsiTemplateString = grunt.template.process(nsiTemplate, {data: dataObj});
 
-    grunt.file.write('./created_template.nsi', nsiTemplateString);
+    grunt.file.write(templateNsiCreated, nsiTemplateString);
 
-    var createdNsiTemplateFile = './created_template.nsi';
+    var createdNsiTemplateFile = templateNsiCreated;
 
     Q.when(createdNsiTemplateFile, function() {
       grunt.util.spawn({
@@ -61,12 +76,13 @@ module.exports = function(grunt) {
       }, function(error, result, code) {
         if (error) {
           throw new Error(error);
-        }  
+        }
         console.log('code: ', code);
+        grunt.file.delete(templateNsiCreated);
         done();
       });
     });
   });
-   
+
 };
 
