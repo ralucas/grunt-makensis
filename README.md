@@ -71,7 +71,8 @@ grunt.initConfig({
     options: {
       srcDir: 'directory/of/source/files',
       buildDir: 'directory/for/the/exe/to/go',
-      appName: 'Name-of-my-app'
+      appName: 'Name-of-my-app',
+      setupName: '_installer'
     }
   },
 });
@@ -81,6 +82,12 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-v0.3.0 - 5/11/15 - Proper Logging Release
-v0.1.0 - 4/15/15 - Initial Release
+* v0.4.0 - 7/24/15 - Build directory updates and setupName option added
+* v0.3.0 - 5/11/15 - Proper Logging Release
+* v0.1.0 - 4/15/15 - Initial Release
+
+## Contributors
+* [Richard Lucas](https://github.com/ralucas)
+* [Vidril César](https://github.com/Yimiprod)
+
 
