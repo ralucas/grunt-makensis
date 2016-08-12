@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Grunt-makensis by ralucas</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Grunt-makensis</h1>
+        <p>Grunt task for makensis to package installer for windows for node-webkit</p>
+
+        <p class="view"><a href="https://github.com/ralucas/grunt-makensis">View the Project on GitHub <small>ralucas/grunt-makensis</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/ralucas/grunt-makensis/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ralucas/grunt-makensis/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ralucas/grunt-makensis">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="grunt-makensis" class="anchor" href="#grunt-makensis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>grunt-makensis</h1>
+
+<blockquote>
+<p>Grunt plugin for creating a windows installer with makensis</p>
+</blockquote>
+
+<p><strong>Requires</strong>: <a href="http://nsis.sourceforge.net/Main_Page">Makensis</a> command-line tool to be installed</p>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>This plugin requires Grunt <code>~0.4.5</code></p>
+
+<p>If you haven't used <a href="http://gruntjs.com/">Grunt</a> before, be sure to check out the <a href="http://gruntjs.com/getting-started">Getting Started</a> guide, as it explains how to create a <a href="http://gruntjs.com/sample-gruntfile">Gruntfile</a> as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:</p>
+
+<div class="highlight highlight-source-shell"><pre>npm install grunt-makensis --save-dev</pre></div>
+
+<p>Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">grunt</span>.<span class="pl-en">loadNpmTasks</span>(<span class="pl-s"><span class="pl-pds">'</span>grunt-makensis<span class="pl-pds">'</span></span>);</pre></div>
+
+<h2>
+<a id="the-makensis-task" class="anchor" href="#the-makensis-task" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The "makensis" task</h2>
+
+<h3>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h3>
+
+<p>In your project's Gruntfile, add a section named <code>makensis</code> to the data object passed into <code>grunt.initConfig()</code>.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">grunt</span>.<span class="pl-en">initConfig</span>({
+  makensis<span class="pl-k">:</span> {
+    options<span class="pl-k">:</span> {
+      srcDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>directory/of/source/files<span class="pl-pds">'</span></span>,
+      buildDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>directory/for/the/exe/to/go<span class="pl-pds">'</span></span>,
+      appName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Name-of-my-app<span class="pl-pds">'</span></span>,
+      setupName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>_installer<span class="pl-pds">'</span></span>
+    }
+  },
+});</pre></div>
+
+<h3>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h3>
+
+<h4>
+<a id="optionssrcdir" class="anchor" href="#optionssrcdir" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options.srcDir</h4>
+
+<p>Type: <code>String</code>
+Default value: There is no default value, this is required for input</p>
+
+<p>A string value that is the directory to the files that you want wrapped up into the windows installer</p>
+
+<h4>
+<a id="optionsbuilddir" class="anchor" href="#optionsbuilddir" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options.buildDir</h4>
+
+<p>Type: <code>String</code>
+Default value: <code>'/'</code></p>
+
+<p>A string value that is the directory for where the <code>.exe</code> file will go</p>
+
+<h4>
+<a id="optionsappname" class="anchor" href="#optionsappname" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options.appName</h4>
+
+<p>Type: <code>String</code>
+Default value: <code>'Windows_app'</code></p>
+
+<p>A string value that is the name of the application</p>
+
+<h4>
+<a id="optionssetupname" class="anchor" href="#optionssetupname" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>options.setupName</h4>
+
+<p>Type: <code>String</code>
+Default value: <code>'_installer'</code></p>
+
+<p>A string value that is the name to add at the appName for the installer</p>
+
+<h3>
+<a id="usage-examples" class="anchor" href="#usage-examples" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Examples</h3>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">grunt</span>.<span class="pl-en">initConfig</span>({
+  makensis<span class="pl-k">:</span> {
+    options<span class="pl-k">:</span> {
+      srcDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>directory/of/source/files<span class="pl-pds">'</span></span>,
+      buildDir<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>directory/for/the/exe/to/go<span class="pl-pds">'</span></span>,
+      appName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Name-of-my-app<span class="pl-pds">'</span></span>,
+      setupName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>_installer<span class="pl-pds">'</span></span>
+    }
+  },
+});</pre></div>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using <a href="http://gruntjs.com/">Grunt</a>.</p>
+
+<h2>
+<a id="release-history" class="anchor" href="#release-history" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Release History</h2>
+
+<ul>
+<li>v0.4.0 - 7/24/15 - Build directory updates and setupName option added</li>
+<li>v0.3.0 - 5/11/15 - Proper Logging Release</li>
+<li>v0.1.0 - 4/15/15 - Initial Release</li>
+</ul>
+
+<h2>
+<a id="contributors" class="anchor" href="#contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributors</h2>
+
+<ul>
+<li><a href="https://github.com/ralucas">Richard Lucas</a></li>
+<li><a href="https://github.com/Yimiprod">Vidril César</a></li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/ralucas">ralucas</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
